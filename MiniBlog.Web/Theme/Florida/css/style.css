@@ -84,7 +84,7 @@
 	/* FOOTER */
 	
 	
-	#footer { width: 100%; padding: 10px 0 0 0; background: #2d2d2d; border-top: 8px solid #222; }
+	#footer { width: 100%; padding: 10px 0 0 0; background: #2d2d2d; border-top: 8px solid #222;position: fixed; bottom: 0; }
 	#footer.litex { background: #fafafa; }
 	.footer-in { margin: 0 auto; padding-bottom: 50px; color: #ccc; position: relative; }
 	.footer-in .columns { margin-top: 20px; }
