@@ -26,7 +26,7 @@ namespace MiniBlog.Web.Areas.Admin.Controllers
         public ActionResult Login(User model) {
             var item=_userService.GetWhere(a => a.Username == model.Username && a.Password == model.Password).FirstOrDefault();
             if (item!=null) {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Main");
             }
             ViewBag.ErrorMessage = "Kullanıcı giriş hatası";
             return View();
