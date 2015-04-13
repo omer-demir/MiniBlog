@@ -1,0 +1,65 @@
+﻿@model MiniBlog.Data.UIModel.BlogPostUIModel
+<hr class="vertical-space2" />
+<section class="eleven columns">
+    <article class="blog-single-post">
+        <img src="@Url.Content(Model.ImageUrl)" alt="" /><br />
+        <div class="post">
+            <div class="postmetadata">
+                <h6 class="blog-author">@Model.ParsedCreateDate.ToShortDateString() / <strong>@Model.Author</strong> / <strong>@Model.Tags</strong></h6>
+            </div>
+            @Html.Raw(Model.Content)
+            <br class="clear" />
+            <!-- ==================== End Single Post  ==================== -->
+
+            @{
+                Html.RenderAction("SinglePostTagsPartial",Model.Id);
+            }
+
+            <div class="next-prev-posts">
+                <a href="#" class="prev-post"><i class="icomoon-arrow-left"></i> Previous Post</a>
+                <a href="#" class="next-post">Next Post <i class="icomoon-arrow-right-2"></i></a>
+            </div><!-- End next-prev post -->
+
+            <hr class="boldbx" />
+
+            <ul class="share-btns" style="display: inline-flex">
+                <li class="twitter" >
+                    <a href="https://twitter.com/share" class="twitter-share-button" style="border: none !important;">Tweet</a>
+                    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+                </li>
+                <li class="facebook">
+                    <div id="fb-root"></div>
+                    <script>
+                        (function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) { return; }
+                            js = d.createElement(s); js.id = id;
+                            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));</script>
+                    <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+                </li>
+            </ul>
+
+            <!-- END-SHARE -->
+        </div>
+    </article>
+    <!-- end-commentbox  -->
+</section>
+<!-- end-main-conten -->
+<aside class="four columns offset-by-one sidebar">
+    @{
+        Html.RenderAction("AboutUsPartial");
+    }
+    <br class="clear" />
+    @{
+        Html.RenderAction("ArchivesPartial");
+    }
+
+    <br class="clear" />
+    @{
+        Html.RenderAction("TagsPartial");
+    }
+</aside>
+<!-- end-sidebar-->
+<div class="white-space"></div>
