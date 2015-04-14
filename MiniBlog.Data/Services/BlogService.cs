@@ -28,13 +28,16 @@ namespace MiniBlog.Data.Services {
         }
 
         public BlogPost GetFirstOrDefault(Func<BlogPost,bool> predicate) {
-            var db = GetDatabase();
+            var db = GetDatabase();                       
             return db.BlogPosts.All().FirstOrDefault(predicate);
         }
 
         public BlogPost GetFirstOrDefault(int id) {
             var db = GetDatabase();
-            return db.BlogPosts.Get(id);
+            BlogPost blg = db.BlogPosts.Get(id);
+            List<Comment> comments = db.Query<Comment>("SELECT * FROM Comments WHERE BlogPostId=" + id).ToList<Comment>();
+            blg.Comments = comments;
+            return blg;
         }
 
         public int SaveOrUpdate(BlogPost entity) {

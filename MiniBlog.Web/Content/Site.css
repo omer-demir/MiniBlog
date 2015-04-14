@@ -16,3 +16,37 @@ textarea {
     max-width: 280px;
 }
 
+@-webkit-keyframes fadeIn { 
+  0% { opacity: 0; }
+  20% { opacity: 0; }
+  40% { opacity: 0.3; }
+  60% { opacity: 0.5; }
+  80% { opacity: 0.9; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  20% { opacity: 0; }
+  40% { opacity: 0.3; }
+  60% { opacity: 0.5; }
+  80% { opacity: 0.9; }
+  100% { opacity: 1; }
+}
+/* Comments Start */
+.comment-form-comment textarea{max-width:100%;}
+li.comments-info{  padding: 0;  line-height: 40px;}
+#dvComments .commentbox{min-height:1px;}
+li.liOpacity0 { 
+  opacity:0;
+}
+
+li.liOpacity1 {
+  opacity:1;
+
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 1s;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+/* Comments End */

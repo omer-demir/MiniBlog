@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniBlog.Data.Models {
-    public class Comment:BaseEntity {
+namespace MiniBlog.Data.UIModel
+{
+    public class CommentUIModel : BaseUIModel
+    {
         public int BlogPostId { get; set; }
 
         public string Name { get; set; }

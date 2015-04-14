@@ -69,6 +69,8 @@ namespace MiniBlog.Web.App_Start
         private static void RegisterServices(IKernel kernel) {
             kernel.Bind<IService<BlogPost>>().To<BlogService>().InRequestScope();
             kernel.Bind<IService<User>>().To<UserService>().InRequestScope();
+            kernel.Bind<IService<Comment>>().To<CommentService>().InRequestScope();
+
         }        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using MiniBlog.Data.Helpers;
 using MiniBlog.Data.Models;
+using System.Collections.Generic;
 
 namespace MiniBlog.Data.UIModel {
     public class BlogPostUIModel : BaseUIModel {
@@ -11,7 +12,28 @@ namespace MiniBlog.Data.UIModel {
         public string Content { get; set; }
         public string ImageUrl { get; set; }
 
+        public List<CommentUIModel> Comments { get; set; }
+
         public static BlogPostUIModel MapFromEntity(BlogPost blogPostEntity) {
+            List<CommentUIModel> cum = new List<CommentUIModel>();
+            if (blogPostEntity.Comments!= null && blogPostEntity.Comments.Count > 0)
+            {
+                foreach (var item in blogPostEntity.Comments)
+                {
+                    CommentUIModel c = new CommentUIModel
+                    {
+                        BlogPostId = item.BlogPostId,
+                        CommentText = item.CommentText,
+                        CreateDate = item.CreateDate.ToString(CultureInfo.InvariantCulture),
+                        Email = item.Email,
+                        Id = item.Id,
+                        Name = item.Name,
+                        ParsedCreateDate = item.CreateDate.ToString(CultureInfo.InvariantCulture).ConvertStringToDate(),
+                        Website = item.Website
+                    };
+                    cum.Add(c);
+                }
+            }
             return new BlogPostUIModel {
                 Author = blogPostEntity.Author,
                 Content = blogPostEntity.Content,
@@ -22,7 +44,8 @@ namespace MiniBlog.Data.UIModel {
                 ActiveStatus = blogPostEntity.ActiveStatus,
                 ShortDescription = blogPostEntity.ShortDescription,
                 Id = blogPostEntity.Id,
-                ParsedCreateDate = blogPostEntity.CreateDate.ToString(CultureInfo.InvariantCulture).ConvertStringToDate()
+                ParsedCreateDate = blogPostEntity.CreateDate.ToString(CultureInfo.InvariantCulture).ConvertStringToDate(),
+                Comments = cum
             };
         }
     }

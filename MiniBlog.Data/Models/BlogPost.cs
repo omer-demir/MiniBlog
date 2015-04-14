@@ -12,5 +12,6 @@ namespace MiniBlog.Data.Models {
         public string ShortDescription { get; set; }
         public string Content { get; set; }
         public string ImageUrl { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

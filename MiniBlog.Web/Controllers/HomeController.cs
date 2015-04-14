@@ -7,45 +7,60 @@ using MiniBlog.Data.Models;
 using MiniBlog.Data.Services;
 using MiniBlog.Data.UIModel;
 using WebGrease.Css.Extensions;
+using MiniBlog.Web.Helpers;
+using System.Globalization;
 
-namespace MiniBlog.Web.Controllers {
-    public class HomeController : Controller {
+namespace MiniBlog.Web.Controllers
+{
+    public class HomeController : Controller
+    {
         private IService<BlogPost> _blogService;
-        public HomeController(IService<BlogPost> blogService) {
+        public HomeController(IService<BlogPost> blogService)
+        {
             this._blogService = blogService;
         }
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
             ViewBag.Title = "Home Page";
             var uiModelList = new List<BlogPostUIModel>();
-            _blogService.GetAll().ForEach(a => {
+            _blogService.GetAll().ForEach(a =>
+            {
                 uiModelList.Add(BlogPostUIModel.MapFromEntity(a));
             });
             return View(uiModelList);
         }
 
-        public ActionResult AboutUs() {
+        public ActionResult AboutUs()
+        {
             return View();
         }
 
-        public ActionResult BlogDetail(int id) {
+        public ActionResult BlogDetail(int id)
+        {
             var uiModel = BlogPostUIModel.MapFromEntity(_blogService.GetFirstOrDefault(id));
             return View(uiModel);
         }
 
-        public ActionResult AboutUsPartial() {
+        public ActionResult AboutUsPartial()
+        {
             return PartialView();
         }
+        
 
-        public ActionResult ArchivesPartial() {
+        public ActionResult ArchivesPartial()
+        {
             var uiModelList = new List<BlogPostUIModel>();
-            _blogService.GetAll().ForEach(a => {
+            _blogService.GetAll().ForEach(a =>
+            {
                 uiModelList.Add(BlogPostUIModel.MapFromEntity(a));
             });
 
-            var groupedList = uiModelList.GroupBy(a => new {
+            var groupedList = uiModelList.GroupBy(a => new
+            {
                 a.ParsedCreateDate.Month,
                 a.ParsedCreateDate.Year,
-            }).Select(grp => new ArchiveUIModel {
+            }).Select(grp => new ArchiveUIModel
+            {
                 Month = grp.Key.Month,
                 Year = grp.Key.Year,
                 Count = grp.Count()
@@ -53,54 +68,65 @@ namespace MiniBlog.Web.Controllers {
             return PartialView(groupedList);
         }
 
-        public ActionResult TagsPartial() {
+        public ActionResult TagsPartial()
+        {
             var uiModelList = new List<BlogPostUIModel>();
-            _blogService.GetAll().ForEach(a => {
+            _blogService.GetAll().ForEach(a =>
+            {
                 uiModelList.Add(BlogPostUIModel.MapFromEntity(a));
             });
 
             var splittedTags = new List<string>();
-            uiModelList.Select(a => a.Tags).ForEach(a => {
+            uiModelList.Select(a => a.Tags).ForEach(a =>
+            {
                 var tempVals = a.Split(',');
-                tempVals.ForEach(b => {
+                tempVals.ForEach(b =>
+                {
                     splittedTags.Add(b);
                 });
             });
             return PartialView(splittedTags.Distinct().ToList());
         }
 
-        public ActionResult SinglePostTagsPartial(int id) {
+        public ActionResult SinglePostTagsPartial(int id)
+        {
             var uiModel = BlogPostUIModel.MapFromEntity(_blogService.GetFirstOrDefault(id));
 
             var splittedTags = new List<string>();
             var tempVals = uiModel.Tags.Split(',');
-            tempVals.ForEach(b => {
+            tempVals.ForEach(b =>
+            {
                 splittedTags.Add(b);
             });
             return PartialView(splittedTags.Distinct().ToList());
         }
 
-        public ActionResult FilteredBlogPosts(string tagName,string currentYear,string currentMonth) {
+        public ActionResult FilteredBlogPosts(string tagName, string currentYear, string currentMonth)
+        {
             var uiModelList = new List<BlogPostUIModel>();
-            if(String.IsNullOrEmpty(currentYear) && String.IsNullOrEmpty(currentMonth)) {
+            if (String.IsNullOrEmpty(currentYear) && String.IsNullOrEmpty(currentMonth))
+            {
                 //filtered with tag
-                _blogService.GetWhere(a => a.Tags.Contains(tagName)).ToList().ForEach(a => {
+                _blogService.GetWhere(a => a.Tags.Contains(tagName)).ToList().ForEach(a =>
+                {
                     uiModelList.Add(BlogPostUIModel.MapFromEntity(a));
                 });
                 return View(uiModelList);
             }
-            _blogService.GetWhere(GetDateFilter(currentYear,currentMonth)).ToList().ForEach(a => {
+            _blogService.GetWhere(GetDateFilter(currentYear, currentMonth)).ToList().ForEach(a =>
+            {
                 uiModelList.Add(BlogPostUIModel.MapFromEntity(a));
             });
             return View(uiModelList);
         }
 
-        private Func<BlogPost,bool> GetDateFilter(string currentYear,string currentMonth) {
+        private Func<BlogPost, bool> GetDateFilter(string currentYear, string currentMonth)
+        {
             var parsedYear = int.Parse(currentYear);
             var parsedMonth = int.Parse(currentMonth);
-            var lastDayOfMonth = DateTime.DaysInMonth(parsedYear,parsedMonth);
-            var upLimit = long.Parse(String.Format("{0}0{1}{2}000000",currentYear,currentMonth,lastDayOfMonth));
-            var downLimit = long.Parse(String.Format("{0}0{1}01000000",currentYear,currentMonth));
+            var lastDayOfMonth = DateTime.DaysInMonth(parsedYear, parsedMonth);
+            var upLimit = long.Parse(String.Format("{0}0{1}{2}000000", currentYear, currentMonth, lastDayOfMonth));
+            var downLimit = long.Parse(String.Format("{0}0{1}01000000", currentYear, currentMonth));
 
             return (a => a.CreateDate <= upLimit && a.CreateDate >= downLimit);
         }
