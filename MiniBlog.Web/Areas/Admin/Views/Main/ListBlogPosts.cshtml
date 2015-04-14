@@ -4,12 +4,15 @@
     ViewBag.Title = "ListBlogPosts";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+<style>
+    .m-tb-10 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+<h2>Blog Girdileri</h2>
 
-<h2>ListBlogPosts</h2>
-
-<p>
-    @Html.ActionLink("Create New","CreateBlogPost")
-</p>
+<a class="btn btn-danger m-tb-10 " href="@Url.Action("CreateBlogPost","Main")">Blog Kaydı Oluştur</a>
 <table class="table">
     <tr>
         

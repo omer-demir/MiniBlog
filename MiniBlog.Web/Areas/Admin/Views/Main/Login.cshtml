@@ -19,7 +19,9 @@
             <div class="col-md-12">
                 @using(Html.BeginForm("Login","Main",FormMethod.Post)) {
                     @Html.AntiForgeryToken()
-
+                    if(ViewBag.ErrorMessage!=null) {
+                        <p style="color: red;">@ViewBag.ErrorMessage</p>
+                    }
                     <div class="form-horizontal">
                         <h4>Giriş</h4>
                         <hr />
