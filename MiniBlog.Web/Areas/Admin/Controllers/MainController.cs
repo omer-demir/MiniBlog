@@ -67,7 +67,7 @@ namespace MiniBlog.Web.Areas.Admin.Controllers
                 Title = model.Title
             };
 
-            _blogService.SaveOrUpdate(blogPost);
+            ViewBag.OperationResult= _blogService.SaveOrUpdate(blogPost)>0?"Kayıt başarıyla tamamlandı":"Kayıt sırasında hata oluştu.";
             return View();
         }
 

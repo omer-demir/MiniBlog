@@ -19,7 +19,7 @@ namespace MiniBlog.Web.Helpers {
                     monthName = "Mart";
                     break;
                 case 4:
-                    monthName = "Nis";
+                    monthName = "Nisa";
                     break;
                 case 5:
                     monthName = "May";
