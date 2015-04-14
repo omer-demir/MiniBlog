@@ -33,7 +33,7 @@
 	
 	/* WRAPPER */ 
 	
-	#wrap { margin: 0 auto; position: relative; padding: 0; background: #fff; }
+	#wrap { margin: 0 auto; position: relative; padding: 0; background: #FAFAFA; }
 	#boxed-wrap { margin: 0 auto; background: #fff; width: 1000px; -webkit-box-shadow: 0 0 9px rgba(0,0,0,0.4); -moz-box-shadow: 0 0 7px rgba(0,0,0,0.4); box-shadow: 0 0 7px rgba(0,0,0,0.4); }
 	#boxed-wrap { border: 1px solid #d6dbdc\9; border-bottom: none; }
 	#full-width, #hero { width: 100%; padding: 0; clear: both; border-bottom: 1px solid #d6d6d6; }
