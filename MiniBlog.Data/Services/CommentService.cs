@@ -49,6 +49,12 @@ namespace MiniBlog.Data.Services
                 //update
                 return db.Comments.Update(entity.Id, entity);
             }
+            int activestatus = entity.ActiveStatus ? 1 : 0;
+            var sql="INSERT INTO [dbo].[Comments]" +
+                    "([BlogPostId],[Name],[Email],[Website],[CommentText],[CreateDate],[ActiveStatus]) " +
+                    "VALUES(" + entity.BlogPostId + ",'" + entity.Name + "','" + entity.Email + "'," +
+                    "'" + entity.Website + "','" + entity.CommentText + "'," + entity.CreateDate + "," + activestatus + ">)";
+
             return db.Comments.Insert(entity) ?? 0;
         }
 

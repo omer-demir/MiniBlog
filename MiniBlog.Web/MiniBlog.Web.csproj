@@ -239,6 +239,7 @@
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Areas\Admin\Views\Main\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Main\Login.cshtml" />
+    <None Include="Properties\PublishProfiles\filePublis.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Icon.png" />
     <Content Include="Scripts\bootstrap.js" />

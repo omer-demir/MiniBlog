@@ -46,7 +46,15 @@ namespace MiniBlog.Data.Services {
                 //update
                 return db.BlogPosts.Update(entity.Id,entity);
             }
-            return db.BlogPosts.Insert(entity) ?? 0;
+            int activestatus = entity.ActiveStatus ? 1 : 0;
+
+            var sql = "INSERT INTO [dbo].[BlogPosts]" +
+                      "([Title],[Author],[Tags],[ShortDescription],[Content],[ImageUrl],[CreateDate],[ActiveStatus])" +
+                      " VALUES(" +
+                      "'"+entity.Title+"','"+entity.Author+"','"+entity.Tags+"','"+entity.ShortDescription+"'," +
+                      "'" + entity.Content + "','" + entity.ImageUrl + "'," + entity.CreateDate + "," + activestatus + ")";
+
+            return db.Execute(sql);
         }
 
         public int Delete(BlogPost entity) {
