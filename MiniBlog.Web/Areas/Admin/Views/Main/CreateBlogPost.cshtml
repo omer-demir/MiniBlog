@@ -67,9 +67,13 @@
 }
 
 <script src="~/Scripts/ckeditor/ckeditor.js"></script>
-<script src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+@*<script src="~/Scripts/ckeditor/adapters/jquery.js"></script>*@
 <script>
     $(function () {
-        $('#Content').ckeditor();
+        CKEDITOR.replace('Content', {
+            customConfig: '/Blog/Scripts/ckeditor/config.js',
+            filebrowserImageUploadUrl: '/Blog/Admin/Main/UploadImage'
+        });
+        //$('#Content').ckeditor();
     });
 </script>

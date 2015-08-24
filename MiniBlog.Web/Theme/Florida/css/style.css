@@ -178,6 +178,8 @@
 	================================================== */
 	
 	/* EXTRAS */
+    /*Ömer Faruk Demir - 22.08.2015*/
+    .about-name{ font-weight: 500;}
 	
 	.brdr-r1, .brdr-r2 { border-right: 1px solid #e5e5e5; padding-right: 19px; }
 	.brdr-l1, .brdr-l2 { border-left: 1px solid #e5e5e5; padding-left: 19px; }

@@ -8,8 +8,7 @@ using MiniBlog.Data.Services;
 using MiniBlog.Web.Areas.Admin.Models;
 using MiniBlog.Web.Helpers;
 
-namespace MiniBlog.Web.Areas.Admin.Controllers
-{
+namespace MiniBlog.Web.Areas.Admin.Controllers {
     public class MainController : Controller {
         private readonly IService<BlogPost> _blogService;
         private readonly IService<User> _userService;
@@ -24,16 +23,15 @@ namespace MiniBlog.Web.Areas.Admin.Controllers
 
         [HttpPost]
         public ActionResult Login(User model) {
-            var item=_userService.GetWhere(a => a.Username == model.Username && a.Password == model.Password).FirstOrDefault();
-            if (item!=null) {
-                return RedirectToAction("Index", "Main");
+            var item = _userService.GetWhere(a => a.Username == model.Username && a.Password == model.Password).FirstOrDefault();
+            if(item != null) {
+                return RedirectToAction("Index","Main");
             }
             ViewBag.ErrorMessage = "Kullanıcı giriş hatası";
             return View();
         }
 
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View();
         }
 
@@ -58,7 +56,7 @@ namespace MiniBlog.Web.Areas.Admin.Controllers
             model.ImageUrl.SaveAs(saveName);
 
             var blogPost = new BlogPost {
-                ActiveStatus =true,
+                ActiveStatus = true,
                 Author = model.Author,
                 Content = model.Content,
                 CreateDate = DateTime.Now.ConvertToLong(),
@@ -67,9 +65,25 @@ namespace MiniBlog.Web.Areas.Admin.Controllers
                 Title = model.Title
             };
 
-            ViewBag.OperationResult= _blogService.SaveOrUpdate(blogPost)>0?"Kayıt başarıyla tamamlandı":"Kayıt sırasında hata oluştu.";
+            ViewBag.OperationResult = _blogService.SaveOrUpdate(blogPost) > 0 ? "Kayıt başarıyla tamamlandı" : "Kayıt sırasında hata oluştu.";
             return View();
         }
+
+        [HttpPost]
+        public ActionResult UploadImage() {
+            var image = Request.Files[0];
+            if (image==null) {
+                return Json("OK");
+            }
+            var serverPath = Server.MapPath("~/Images");
+            var fileName = image.FileName;
+            var saveName = serverPath + "/" + fileName;
+            var relativePath = "~/Images/" + fileName;
+            //CKEDITOR.tools.callFunction("CKEditorFuncNum, " + relativePath + ")
+            image.SaveAs(saveName);
+            return Content(relativePath);
+        }
+
 
         public ActionResult EditBlogPost(int id) {
             return View();
@@ -80,7 +94,8 @@ namespace MiniBlog.Web.Areas.Admin.Controllers
         }
 
         public ActionResult DeleteBlogPost(int id) {
-            return View();
+            _blogService.Delete(id);
+            return new JsonResult();
         }
     }
 }
