@@ -17,13 +17,15 @@
                 <img src="@Url.Content(item.ImageUrl)" alt="" /><br />
             </div>
             <div class="six columns omega">
-                <h3><a href="@Url.Action("BlogDetail",new { id = item.Id,friendlyEnd=item.Title.Replace(' ','-').ToLower(CultureInfo.InvariantCulture) })">@item.Title</a></h3>
+                <h3>
+                    <a href="@Url.Action("BlogDetail", new {id = item.Id, friendlyEnd = item.Title.Replace(' ', '-').Replace('.', '-').ToLower(CultureInfo.InvariantCulture)})">@item.Title</a>
+                </h3>
                 <div class="postmetadata">
                     <h6 class="blog-author"><strong>by</strong> @item.Author </h6>
                     <h6 class="blog-cat"><strong>in</strong> @item.Tags </h6>
                 </div>
                 <p> @Html.Raw(item.ShortDescription)</p>
-                <a href="@Url.Action("BlogDetail",new { id = item.Id,friendlyEnd=item.Title.Replace(' ','-').ToLower(CultureInfo.InvariantCulture) })" class="readmore">Devamı...</a>
+                <a href="@Url.Action("BlogDetail", new {id = item.Id, friendlyEnd = item.Title.Replace(' ', '-').Replace('.', '-').ToLower(CultureInfo.InvariantCulture)})" class="readmore">Devamı...</a>
             </div>
             <br class="clear" />
         </article>

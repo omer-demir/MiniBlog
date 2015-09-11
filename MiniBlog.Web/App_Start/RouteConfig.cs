@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.AspNet.FriendlyUrls;
 
 namespace MiniBlog.Web {
     public class RouteConfig {
@@ -14,6 +15,10 @@ namespace MiniBlog.Web {
                 url: "{controller}/{action}/{id}/{friendlyEnd}",
                 defaults: new { controller = "Home",action = "Index",id = UrlParameter.Optional,friendlyEnd="" }
             );
+
+            var settings = new FriendlyUrlSettings();
+            settings.AutoRedirectMode = RedirectMode.Permanent;
+            routes.EnableFriendlyUrls(settings);
             
         }
     }

@@ -49,5 +49,6 @@ namespace MiniBlog.Web.Helpers {
             }
             return new HtmlString(monthName);
         }
+
     }
 }
